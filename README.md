@@ -1,0 +1,2 @@
+# helper
+Discord helper bot
