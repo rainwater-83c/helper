@@ -2,7 +2,8 @@ from discord.ext.commands import Cog
 from PIL import Image, ImageSequence
 import requests
 from io import BytesIO
-
+from discord import app_commands
+import discord
 
 
 
@@ -10,7 +11,7 @@ class Main(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def gif_overlay(image, gif)
+    def gif_overlay(image, gif, filename):
         buffer = BytesIO()
         frames = []
         for frame in ImageSequence.Iterator(gif):
@@ -29,6 +30,7 @@ class Main(Cog):
         frames[0].save(buffer, format="GIF", save_all=True, append_images=frames[1:]) 
         gif_bytes = buffer.getvalue()
         buffer.close()
+        return discord.File(BytesIO(gif_bytes), filename=filename)
         
         
 
@@ -38,8 +40,10 @@ class Main(Cog):
     @app_commands.command(name="petpet", description="Pets a user")
     async def petpet(self, interaction: discord.Interaction, user: discord.User):
         avatar = user.avatar.url
-        img = Image.open(BytesIO(requests.get(avatar))
-        interaction.response.send_message("")
+        img = Image.open(BytesIO(requests.get(avatar)))
+        gif = Image.open("assets/petpet.gif")
+        file = self.gif_overlay(img, gif, f"{user.id}_patpat.gif")
+        interaction.response.send_message(file=file)
     
 async def setup(bot):
     await bot.add_cog(Main(bot))

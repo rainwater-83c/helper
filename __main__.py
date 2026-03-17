@@ -2,6 +2,24 @@ import discord
 from discord.ext import commands
 import os
 import config
+import asyncio
+import logging
+import sys
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+log_format = logging.Formatter(
+    "[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s"
+)
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setFormatter(log_format)
+logfile_handler = logging.FileHandler("logs/bot.log", mode="w")
+logfile_handler.setFormatter(log_format)
+log = logging.getLogger("discord")
+log.setLevel(logging.INFO)
+log.addHandler(stdout_handler)
+log.addHandler(logfile_handler)
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -15,13 +33,14 @@ bot = commands.Bot(
 )
 
 bot.help_command = None
+bot.log = log
 bot.config = config
 bot.version = config.version
 
-@bot.event()
+@bot.event
 async def on_ready():
-    print(f"\nLogged in as: {bot.user.name} - {bot.user.id}")
-
+    log.info(f"\nLogged in as: {bot.user.name} - {bot.user.id}")
+    await bot.tree.sync()
 # context menu commands cannot be placed in cogs
 
 
