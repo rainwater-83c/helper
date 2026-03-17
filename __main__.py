@@ -13,9 +13,18 @@ bot = commands.Bot(
     intents=intents,
     enable_debug_events=True,  # for raw events (e.g. super reactions handler)
 )
+
 bot.help_command = None
 bot.config = config
 bot.version = config.version
+
+@bot.event()
+async def on_ready():
+    print(f"\nLogged in as: {bot.user.name} - {bot.user.id}")
+
+# context menu commands cannot be placed in cogs
+
+
 
 
 async def main():
