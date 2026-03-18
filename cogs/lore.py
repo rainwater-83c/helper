@@ -30,7 +30,7 @@ class Lore(Cog):
         red = color_lore('Red', 0xff8080, 'The evil one.', 'Corruption', 'Flamelight', 'Fire', ['Able to corrupt anything with squares.', 'Able to light things on fire.'])
         yellow = color_lore('Yellow', 0xffff80, "It's the small things that matter.", 'Energy', 'Spirecloud', 'Eletricity', ['Able to control the flow of eletricity.', 'Able to control the amount of electrons in atoms.'])
         green = color_lore('Green', 0x80ff80, "", 'Life', 'Fernwood', 'Earth', ['Able to control plants.', 'Able to give life to an object.'])
-        cyan = color_lore('Cyan', 0x80ffff, "Makes up everything you see.", 'Space', 'Frostclaw', 'Ice', ['Able to teleport.', 'Able to control an object.', 'Able to change gravity.', 'Able to change the size of things.'])
+        cyan = color_lore('Cyan', 0x80ffff, "Makes up everything you see.", 'Space', 'Frostfeather', 'Ice', ['Able to teleport.', 'Able to control an object.', 'Able to change gravity.', 'Able to change the size of things.'])
         blue = color_lore('Blue', 0x8080ff, "They know what you're thinking.", 'Soul', 'Echosight', 'Water', ['Able to enter someone's mind.', 'Able to view someone's intentions.'])
         magenta = color_lore('Magenta', 0xff80ff, "Time is just a concept.", 'Time', 'Nightpool', 'Day/Night', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
         white = color_lore('White', 0xffffff, "You can't have yin without yang.", 'Purity', 'Snowpelt', 'Light', ['Able to produce or control light.', 'Able to use any of the Red, Green, or Blue abilities.'])
@@ -62,20 +62,40 @@ class Lore(Cog):
         app_commands.Choice(name='Flamelight', value='r'),
         app_commands.Choice(name='Spirecloud', value='y'),
         app_commands.Choice(name='Fernwood', value='g'),
-        app_commands.Choice(name='Frostclaw', value='c'),
+        app_commands.Choice(name='Frostfeather', value='c'),
         app_commands.Choice(name='Echosight', value='b'),
         app_commands.Choice(name='Nightpool', value='m'),
         app_commands.Choice(name='Snowpelt', value='w'),
         app_commands.Choice(name='Shadowleaf', value='k'),
     ])
     async def character(self, interaction: discord.Interaction, character: app_commands.Choice[str]):
-        red = character_lore("Flamelight", 0xff8080, "Warrior from ThunderClan.", "Red", "Corruption", "Cold and unwelcoming.", "High", ["*Gender*: Male","**Species**: Feline", "**Coat color**: Ginger tabby", "**Eye color**: Red"])
-        yellow = character_lore("Spirecloud", 0xffff80, "Warrior from WindClan.", "Yellow", "Energy", "Energetic", "Medium", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Yellow"])
-        green = character_lore("Fernwood", 0x80ff80, "Medicine cat from SkyClan.", "Green", "Life", "Sympathetic", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Tortoiseshell", "**Eye color**: Green"])
-        cyan = character_lore("Frostclaw", 0x80ffff, "Deputy of RiverClan.", "Cyan", "Space", "Unknown", "High", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Cyan"])
-        blue = character_lore("Echosight", 0x8080ff, "Medicine cat from RiverClan.", "Blue", "Soul", "Unknown", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Gray tabby", "**Eye color**: Blue"])
-        magenta = character_lore("Nightpool", 0xff80ff, "Medicine cat from ShadowClan.", "Magenta", "Time", "Unknown", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Gray tabby", "**Eye color**: Magenta"])
-        white = character_lore("Snowpelt", 0xffffff, "Warrior from WindClan.", "White", "Purity", "Unknown", "High", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Heterochromatic; Red, green, and blue gradient in both eyes"])
-        black = character_lore("Shadowleaf", 0x808080, "Warrior from ShadowClan.", "Black", "Void", "Unknown", "High", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Black", "**Eye color**: Heterochromatic; Cyan, magenta, and yellow gradient in both eyes"])
+        red = character_lore("Flamelight", 0xff8080, "Deputy of ThunderClan.", "Red", "Corruption", "Cold and unwelcoming.", "High", ["*Gender*: Male","**Species**: Feline", "**Coat color**: Ginger tabby", "**Eye color**: Red"])
+        yellow = character_lore("Spirecloud", 0xffff80, "Warrior from WindClan.", "Yellow", "Energy", "Energetic and impatient", "Medium", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Yellow"])
+        green = character_lore("Fernwood", 0x80ff80, "Medicine cat from SkyClan.", "Green", "Life", "Sympathetic and caring", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Tortoiseshell", "**Eye color**: Green"])
+        cyan = character_lore("Frostfeather", 0x80ffff, "Warrior from RiverClan.", "Cyan", "Space", "Friendly", "High", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Cyan"])
+        blue = character_lore("Echosight", 0x8080ff, "Medicine cat from RiverClan.", "Blue", "Soul", "Mysterious and knowing", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Gray tabby", "**Eye color**: Blue"])
+        magenta = character_lore("Nightpool", 0xff80ff, "Medicine cat from ShadowClan.", "Magenta", "Time", "Shy", "Medium", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Gray tabby", "**Eye color**: Magenta"])
+        white = character_lore("Snowpelt", 0xffffff, "Warrior from WindClan.", "White", "Purity", "Friendly", "High", ["**Gender**: Male", "**Species**: Feline", "**Coat color**: White", "**Eye color**: Heterochromatic; Red, green, and blue gradient in both eyes"])
+        black = character_lore("Shadowleaf", 0x808080, "Warrior from ShadowClan.", "Black", "Void", "Mysterious", "High", ["**Gender**: Female", "**Species**: Feline", "**Coat color**: Black", "**Eye color**: Heterochromatic; Cyan, magenta, and yellow gradient in both eyes"])
+
+        embed = None
+        if color.value == 'r':
+            embed = red
+        elif color.value == 'y':
+            embed = yellow
+        elif color.value == 'g':
+            embed = green
+        elif color.value == 'c':
+            embed = cyan
+        elif color.value == 'b':
+            embed = blue
+        elif color.value == 'm':
+            embed = magenta
+        elif color.value == 'w':
+            embed = white
+        elif color.value == 'k':
+            embed = black
+        await interaction.followup.send(embed=embed)
+
 async def setup(bot):
     await bot.add_cog(Lore(bot))
