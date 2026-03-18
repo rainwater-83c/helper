@@ -4,6 +4,7 @@ import requests
 from io import BytesIO
 from discord import app_commands
 import discord
+from helpers.embeds import color_lore
 
 class Lore(Cog):
     def __init__(self, bot):
@@ -26,78 +27,20 @@ class Lore(Cog):
     ])
     async def color(self, interaction: discord.Interaction, color: app_commands.Choice[str]):
         await interaction.response.defer()
-        red = discord.Embed(
-            title="Red",
-            description="Red",
-            colour=0xff8080
-        )
-        red.add_field(name="Holder", value="Flamelight", inline=True)
-        red.add_field(name="Representation", value="Corruption", inline=True)
-        red.add_field(name="Element", value="Fire", inline=True)
-        red.add_field(name="Abilities", value="Able to corrupt anything with squares.\nAble to light things on fire.", inline=False)
-        red.set_footer(text="Red | Corruption | Fire")
-
-        yellow = discord.Embed(
-            title="Yellow",
-            description="Yellow",
-            colour=0xffff80
-        )
-        yellow.add_field(name="Holder", value="Spirecloud", inline=True)
-        yellow.add_field(name="Representation", value="Energy", inline=True)
-        yellow.add_field(name="Element", value="Eletricity", inline=True)
-        yellow.add_field(name="Abilities", value="Control the flow of eletricity.\nControl the amount of electrons in atoms.", inline=False)
-        yellow.set_footer(text="Yellow | Energy | Eletricity")
-
-        green = discord.Embed(
-            title="Green",
-            description="Green",
-            colour=0x80ff80
-        )
-        green.add_field(name="Holder", value="Fernwood", inline=True)
-        green.add_field(name="Representation", value="Life", inline=True)
-        green.add_field(name="Element", value="Earth", inline=True)
-        green.add_field(name="Abilities", value="Able to control plants.\nAble to give life to an object.", inline=False)
-        green.set_footer(text="Green | Life | Earth")
-
-        cyan = discord.Embed(
-            title="Cyan",
-            description="Cyan",
-            colour=0x80ffff
-        )
-        cyan.add_field(name="Holder", value="???", inline=True)
-        cyan.add_field(name="Representation", value="Space", inline=True)
-        cyan.add_field(name="Element", value="Ice", inline=True)
-        cyan.add_field(name="Abilities", value="Able to teleport.\nAble to control an object.", inline=False)
-        cyan.set_footer(text="Cyan | Matter | Ice")
-
-        blue = discord.Embed(
-            title="Blue",
-            description="Blue",
-            colour=0x8080ff
-        )
-        blue.add_field(name="Holder", value="Echosight", inline=True)
-        blue.add_field(name="Representation", value="Soul", inline=True)
-        blue.add_field(name="Element", value="Water", inline=True)
-        blue.add_field(name="Abilities", value="Able to enter someone's mind.\nAble to view someone's intentions.", inline=False)
-        blue.set_footer(text="Blue | Soul | Water")
-
-        magenta = discord.Embed(
-            title="Magenta",
-            description="Magenta",
-            colour=0xff80ff
-        )
-        magenta.add_field(name="Holder", value="Nightpool", inline=True)
-        magenta.add_field(name="Representation", value="Time", inline=True)
-        magenta.add_field(name="Element", value="Day/Night", inline=True)
-        magenta.add_field(name="Abilities", value="Able to travel through time.\nAble to take time through an object.\nAble to pause time, speed up time, or slow time.", inline=False)
-        magenta.set_footer(text="Magenta | Time | Day/Night")
-
+        red = color_lore('Red', 0xff8080, 'Red', 'Corruption', 'Flamelight', 'Fire', ['Able to corrupt anything with squares.', 'Able to light things on fire.'])
+        yellow = color_lore('Yellow', 0xffff80, 'Yellow', 'Energy', 'Spirecloud', 'Eletricity', ['Able to control the flow of eletricity.', 'Able to control the amount of electrons in atoms.'])
+        green = color_lore('Green', 0x80ff80, 'Green', 'Life', 'Fernwood', 'Earth', ['Able to control plants.', 'Able to give life to an object.'])
+        cyan = color_lore('Cyan', 0x80ffff, 'Cyan', 'Space', 'Frostclaw', 'Ice', ['Able to teleport.', 'Able to control an object.'])
+        blue = color_lore('Blue', 0x8080ff, 'Blue', 'Soul', 'Echosight', 'Water', ['Able to enter someone's mind.', 'Able to view someone's intentions.'])
+        magenta = color_lore('Magenta', 0xff80ff, 'Magenta', 'Time', 'Nightpool', 'Day/Night', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
+        white = color_lore('White', 0xff80ff, 'White', 'Purity', 'Snowpelt', '', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
+        
         white = discord.Embed(
             title="White",
             description="White",
             colour=0xffffff
         )
-        white.add_field(name="Holder", value="???", inline=True)
+        white.add_field(name="Holder", value="Snowpelt", inline=True)
         white.add_field(name="Representation", value="Purity", inline=True)
         white.add_field(name="Element", value="Light", inline=True)
         white.add_field(name="Abilities", value="Able to produce or control light.\nAble to use any of the Red, Green, or Blue abilities.", inline=False)
@@ -108,7 +51,7 @@ class Lore(Cog):
             description="Black",
             colour=0x000000
         )
-        black.add_field(name="Holder", value="???", inline=True)
+        black.add_field(name="Holder", value="Shadowleaf", inline=True)
         black.add_field(name="Representation", value="Void", inline=True)
         black.add_field(name="Element", value="Dark", inline=True)
         black.add_field(name="Abilities", value="Able to control the Void.\nAble to use any of the Cyan, Magenta, or Yellow abilities.", inline=False)
@@ -134,5 +77,20 @@ class Lore(Cog):
             embed = black
         await interaction.followup.send(embed=embed)
 
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @lore.command(name="character", description="Gets the lore of a character.")
+    @app_commands.choices(character=[
+        app_commands.Choice(name='Flamelight', value='r'),
+        app_commands.Choice(name='Spirecloud', value='y'),
+        app_commands.Choice(name='Fernwood', value='g'),
+        app_commands.Choice(name='Frostclaw', value='c'),
+        app_commands.Choice(name='Echosight', value='b'),
+        app_commands.Choice(name='Nightpool', value='m'),
+        app_commands.Choice(name='Snowpelt', value='w'),
+        app_commands.Choice(name='Shadowleaf', value='k'),
+    ])
+    async def character(self, interaction: discord.Interaction, character: app_commands.Choice[str]):
+        
 async def setup(bot):
     await bot.add_cog(Lore(bot))
