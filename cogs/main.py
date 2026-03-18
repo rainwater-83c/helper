@@ -4,46 +4,44 @@ import requests
 from io import BytesIO
 from discord import app_commands
 import discord
+import json
+from helpers.datafiles import make_userfile, get_userfile, set_userfile
 
 
 
 class Main(Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    def gif_overlay(image, gif, filename):
-        buffer = BytesIO()
-        frames = []
-        for frame in ImageSequence.Iterator(gif):
-            output = image.copy()
-            frame_px = frame.load()
-            output_px = output.load()
-            transparent_foreground = frame.convert('RGBA')
-            transparent_foreground_px = transparent_foreground.load()
-            for x in range(frame.width):
-                for y in range(frame.height):
-                    if frame_px[x, y] in (frame.info["background"], frame.info["transparency"]):
-                        continue
-                    output_px[x, y] = transparent_foreground_px[x, y]
-            frames.append(output)
-
-        frames[0].save(buffer, format="GIF", save_all=True, append_images=frames[1:]) 
-        gif_bytes = buffer.getvalue()
-        buffer.close()
-        return discord.File(BytesIO(gif_bytes), filename=filename)
-        
-        
-
     
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="petpet", description="Pets a user")
     async def petpet(self, interaction: discord.Interaction, user: discord.User):
-        avatar = user.avatar.url
-        img = Image.open(BytesIO(requests.get(avatar)))
-        gif = Image.open("assets/petpet.gif")
-        file = self.gif_overlay(img, gif, f"{user.id}_patpat.gif")
-        interaction.response.send_message(file=file)
+        file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
+        await interaction.response.send_message(user.mention, file=file)
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="kiss", description="Gives a user a kiss")
+    async def kiss(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        count = userfile.get('kiss', 0) + 1
+        userfile['kiss'] = count
+        set_userfile(user.id, "interactions", json.dumps(userfile))
+        await interaction.response.send_message(f"{user.mention} was kissed!\n-# {user.name} has been kissed {count} times.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="boop", description="Boops a user")
+    async def boop(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        count = userfile.get('boop', 0) + 1
+        userfile['boop'] = count
+        set_userfile(user.id, "interactions", json.dumps(userfile))
+        await interaction.response.send_message(f"{user.mention} was booped!\n-# {user.name} has been booped {count} times.")
+    
+    
+
     
 async def setup(bot):
     await bot.add_cog(Main(bot))

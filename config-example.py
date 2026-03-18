@@ -1,4 +1,4 @@
 token = ""
 version = ""
-short_desc ""
+short_desc = ""
 managers = []
