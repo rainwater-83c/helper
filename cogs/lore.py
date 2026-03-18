@@ -4,7 +4,7 @@ import requests
 from io import BytesIO
 from discord import app_commands
 import discord
-from helpers.embeds import color_lore
+from helpers.embeds import color_lore, character_lore
 
 class Lore(Cog):
     def __init__(self, bot):
@@ -27,36 +27,14 @@ class Lore(Cog):
     ])
     async def color(self, interaction: discord.Interaction, color: app_commands.Choice[str]):
         await interaction.response.defer()
-        red = color_lore('Red', 0xff8080, 'Red', 'Corruption', 'Flamelight', 'Fire', ['Able to corrupt anything with squares.', 'Able to light things on fire.'])
-        yellow = color_lore('Yellow', 0xffff80, 'Yellow', 'Energy', 'Spirecloud', 'Eletricity', ['Able to control the flow of eletricity.', 'Able to control the amount of electrons in atoms.'])
-        green = color_lore('Green', 0x80ff80, 'Green', 'Life', 'Fernwood', 'Earth', ['Able to control plants.', 'Able to give life to an object.'])
-        cyan = color_lore('Cyan', 0x80ffff, 'Cyan', 'Space', 'Frostclaw', 'Ice', ['Able to teleport.', 'Able to control an object.'])
-        blue = color_lore('Blue', 0x8080ff, 'Blue', 'Soul', 'Echosight', 'Water', ['Able to enter someone's mind.', 'Able to view someone's intentions.'])
-        magenta = color_lore('Magenta', 0xff80ff, 'Magenta', 'Time', 'Nightpool', 'Day/Night', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
-        white = color_lore('White', 0xff80ff, 'White', 'Purity', 'Snowpelt', '', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
-        
-        white = discord.Embed(
-            title="White",
-            description="White",
-            colour=0xffffff
-        )
-        white.add_field(name="Holder", value="Snowpelt", inline=True)
-        white.add_field(name="Representation", value="Purity", inline=True)
-        white.add_field(name="Element", value="Light", inline=True)
-        white.add_field(name="Abilities", value="Able to produce or control light.\nAble to use any of the Red, Green, or Blue abilities.", inline=False)
-        white.set_footer(text="White | Purity | Light")
-
-        black = discord.Embed(
-            title="Black",
-            description="Black",
-            colour=0x000000
-        )
-        black.add_field(name="Holder", value="Shadowleaf", inline=True)
-        black.add_field(name="Representation", value="Void", inline=True)
-        black.add_field(name="Element", value="Dark", inline=True)
-        black.add_field(name="Abilities", value="Able to control the Void.\nAble to use any of the Cyan, Magenta, or Yellow abilities.", inline=False)
-        black.set_footer(text="Black | Void | Dark")
-
+        red = color_lore('Red', 0xff8080, 'The evil one.', 'Corruption', 'Flamelight', 'Fire', ['Able to corrupt anything with squares.', 'Able to light things on fire.'])
+        yellow = color_lore('Yellow', 0xffff80, "It's the small things that matter.", 'Energy', 'Spirecloud', 'Eletricity', ['Able to control the flow of eletricity.', 'Able to control the amount of electrons in atoms.'])
+        green = color_lore('Green', 0x80ff80, "", 'Life', 'Fernwood', 'Earth', ['Able to control plants.', 'Able to give life to an object.'])
+        cyan = color_lore('Cyan', 0x80ffff, "Makes up everything you see.", 'Space', 'Frostclaw', 'Ice', ['Able to teleport.', 'Able to control an object.', 'Able to change gravity.', 'Able to change the size of things.'])
+        blue = color_lore('Blue', 0x8080ff, "They know what you're thinking.", 'Soul', 'Echosight', 'Water', ['Able to enter someone's mind.', 'Able to view someone's intentions.'])
+        magenta = color_lore('Magenta', 0xff80ff, "Time is just a concept.", 'Time', 'Nightpool', 'Day/Night', ['Able to travel through time.', 'Able to take time through an object.', 'Able to pause time, speed up time, or slow time.'])
+        white = color_lore('White', 0xffffff, "You can't have yin without yang.", 'Purity', 'Snowpelt', 'Light', ['Able to produce or control light.', 'Able to use any of the Red, Green, or Blue abilities.'])
+        black = color_lore('Black', 0x000000, "You can't have yang without yin.", 'Void', 'Shadowleaf', 'Dark', ['Able to control the Void.', 'Able to use any of the Cyan, Magenta, or Yellow abilities.'])
 
         embed = None
         if color.value == 'r':
@@ -91,6 +69,6 @@ class Lore(Cog):
         app_commands.Choice(name='Shadowleaf', value='k'),
     ])
     async def character(self, interaction: discord.Interaction, character: app_commands.Choice[str]):
-        
+        red = character_lore("Flamelight", 0xff8080, "", "Red", "Corruption", "", "", [])
 async def setup(bot):
     await bot.add_cog(Lore(bot))
