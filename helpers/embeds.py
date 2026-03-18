@@ -21,7 +21,7 @@ def character_lore(name:str, color:hex, description:str, colorname:str, power:st
     )
     embed.add_field(name="Power", value=power, inline=True)
     embed.add_field(name="Personality", value=personality, inline=True)
-    embed.add_field(name="Danger rank", value=danger, inline=True)
+    embed.add_field(name="Danger", value=danger, inline=True)
     embed.add_field(name="Traits", value='\n'.join(traits), inline=False)
     embed.set_footer(text=f"{name} | {colorname} | {power}")
     return embed
