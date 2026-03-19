@@ -87,7 +87,12 @@ class Main(Cog):
             await interaction.response.send_message(f"{user.mention} got hit!\n-# {user.name} has been hit {count} times.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
-    
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="gofuckyourself", description="Tells a user to go fuck themselves.")
+    async def gofuckyourself(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{user.mention}, you're being told to go fuck yourself!")
 
     
 async def setup(bot):
