@@ -46,20 +46,28 @@ bot.version = config.version
 async def sync(ctx: commands.Context):
     await bot.tree.sync()
     await ctx.send("Commands synced globally!")
+    log.info("*")
+    for command in bot.tree.walk_commands():
+        log.info(f"* {command.name}")
+    log.info("*")
 
 @bot.command()
 @commands.is_owner()
 async def syncguild(ctx: commands.Context):
-    guild = bot.get_guild(1377274564282679457)
+    
+    guild = discord.Object(id=1377274564282679457)
+    bot.tree.copy_global_to(guild=guild)
     await bot.tree.sync(guild=guild)
-    await ctx.send("Commands synced globally!")
+    await ctx.send("Commands synced!")
+    log.info("*")
+    for command in bot.tree.walk_commands(guild=guild):
+        log.info(f"* {command.name}")
+    log.info("*")
 
 @bot.event
 async def on_ready():
     log.info(f"\nLogged in as: {bot.user.name} - {bot.user.id}")
-    #await bot.tree.sync()
-    #guild = bot.get_guild(1377274564282679457)
-    #await bot.tree.sync(guild=guild)
+
 
 # context menu commands cannot be placed in cogs
 @app_commands.allowed_installs(users=True, guilds=True)

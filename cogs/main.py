@@ -32,6 +32,16 @@ class Main(Cog):
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="hug", description="Gives a user a hug")
+    async def hug(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        count = userfile.get('hug', 0) + 1
+        userfile['hug'] = count
+        set_userfile(user.id, "interactions", json.dumps(userfile))
+        await interaction.response.send_message(f"{user.mention} was hugged!\n-# {user.name} has been hugged {count} times.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="boop", description="Boops a user")
     async def boop(self, interaction: discord.Interaction, user: discord.User):
         userfile = get_userfile(user.id, "interactions")
