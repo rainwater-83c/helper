@@ -54,6 +54,24 @@ class Main(Cog):
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="cuddle", description="Gives a user a hug")
+    async def cuddle(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('cuddle', 0) + 1
+            userfile['cuddle'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            await interaction.response.send_message(f"{user.mention} is being cuddled!\n-# {user.name} has been cuddled with {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
+
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="boop", description="Boops a user")
@@ -81,7 +99,7 @@ class Main(Cog):
             userfile['interact'] = True
             set_userfile(user.id, "interactions", json.dumps(userfile))
         if userfile['interact']:
-            count = userfile.get('boop', 0) + 1
+            count = userfile.get('hit', 0) + 1
             userfile['hit'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
             await interaction.response.send_message(f"{user.mention} got hit!\n-# {user.name} has been hit {count} times.")

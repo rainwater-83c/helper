@@ -1,10 +1,18 @@
 from discord.ext.commands import Cog
+from discord.ext import commands
+from PIL import Image, ImageSequence
+import requests
+from io import BytesIO
+from discord import app_commands
+import discord
+from helpers.datafiles import make_userfile, get_userfile, set_userfile
+import json
 
 class Settings(Cog):
     def __init__(self,bot):
         self.bot = bot
 
-    lore = app_commands.Group(
+    settings = app_commands.Group(
         name="setting", 
         description="Settings for users and the bot.",
 
@@ -27,4 +35,7 @@ class Settings(Cog):
         userfile = get_userfile(user.id, "interactions")
         userfile['interact'] = enabled
         set_userfile(user.id, "interactions", json.dumps(userfile))
-        interaction.response.send_message(f"{user.mention}'s preferences set to {'interact' if enabled else 'do not interact.'}")s
+        await interaction.response.send_message(f"{user.mention}'s preferences set to {'interact.' if enabled else 'do not interact.'}")
+
+async def setup(bot):
+    await bot.add_cog(Settings(bot))
