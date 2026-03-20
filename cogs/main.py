@@ -102,6 +102,40 @@ class Main(Cog):
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="nuzzle", description="Boops a user")
+    async def nuzzle(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('nuzzle', 0) + 1
+            userfile['nuzzle'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            await interaction.response.send_message(f"{user.mention} was nuzzled!\n-# {user.name} has been nuzzled {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="squish", description="Squishes a user")
+    async def squish(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('squish', 0) + 1
+            userfile['squish'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            await interaction.response.send_message(f"{user.mention} was squished!\n-# {user.name} has been squished {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="hit", description="Hits a user")
     async def hit(self, interaction: discord.Interaction, user: discord.User):
         userfile = get_userfile(user.id, "interactions")
@@ -114,6 +148,24 @@ class Main(Cog):
             userfile['hit'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
             await interaction.response.send_message(f"{user.mention} got hit!\n-# {user.name} has been hit {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
+
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="punt", description="Punts a user")
+    async def punt(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('punt', 0) + 1
+            userfile['punt'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            await interaction.response.send_message(f"{user.mention} got punted!\n-# {user.name} has been punted {count} times.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 

@@ -39,12 +39,23 @@ class UserProfile(Cog):
     @user.command(name="get", description="Gets a user's profile.")
     async def userget(self, interaction: discord.Interaction, user: discord.User):
         interactions = get_userfile(user.id, 'interactions')
-        embed = discord.embed(
-            title={user.name},
+        embed = discord.Embed(
+            title=user.name,
             description=f'*meowww*',
             colour=0xffffff
         )
-        embed.add_field(name="Interact?", value={interactions['interact']}, inline=True)
+        interactions['kiss'] = interactions.get('kiss', 0)
+        interactions['boop'] = interactions.get('boop', 0)
+        interactions['hug'] = interactions.get('hug', 0)
+        interactions['pet'] = interactions.get('pet', 0)
+        interactions['cuddle'] = interactions.get('cuddle', 0)
+        interactions['squish'] = interactions.get('squish', 0)
+        interactions['hit'] = interactions.get('hit', 0)
+        interactions['punt'] = interactions.get('punt', 0)
+        
+        embed.add_field(name="Interact?", value=interactions['interact'], inline=True)
+        embed.add_field(name="Interaction stats:", value=f"Kiss: {interactions['kiss']}\nBoop: {interactions['boop']}\nHug: {interactions['hug']}\nPet: {interactions['pet']}\nCuddle: {interactions['cuddle']}\nHit: {interactions['hit']}\nPunt: {interactions['punt']}", inline=False)
+        await interaction.response.send_message(embed=embed)
     
 
 async def setup(bot):
