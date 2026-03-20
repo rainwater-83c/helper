@@ -17,8 +17,19 @@ class Main(Cog):
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="petpet", description="Pets a user")
     async def petpet(self, interaction: discord.Interaction, user: discord.User):
-        file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
-        await interaction.response.send_message(user.mention, file=file)
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('pet', 0) + 1
+            userfile['pet'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
+            await interaction.response.send_message(user.mention, file=file)
+            await interaction.followup.send(f"-# {user.name} has been pet {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
@@ -57,7 +68,7 @@ class Main(Cog):
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.command(name="cuddle", description="Gives a user a hug")
+    @app_commands.command(name="cuddle", description="Cuddles a user.")
     async def cuddle(self, interaction: discord.Interaction, user: discord.User):
         userfile = get_userfile(user.id, "interactions")
         if 'interact' not in userfile:
