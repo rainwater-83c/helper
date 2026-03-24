@@ -8,6 +8,7 @@ from io import BytesIO
 import requests
 import logging
 import sys
+from helpers.datafiles import make_userfile, get_userfile, set_userfile
 
 if not os.path.exists("logs"):
     os.makedirs("logs")
@@ -74,8 +75,20 @@ async def on_ready():
 @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @bot.tree.context_menu(name="petpet")
 async def petpet(interaction: discord.Interaction, user: discord.User):
-    file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
-    await interaction.response.send_message(user.mention, file=file)
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('pet', 0) + 1
+            userfile['pet'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
+            await interaction.response.send_message(user.mention, file=file)
+            await interaction.followup.send(f"-# {user.name} has been pet {count} times.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
 
 async def main():

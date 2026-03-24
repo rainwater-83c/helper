@@ -52,9 +52,10 @@ class UserProfile(Cog):
         interactions['squish'] = interactions.get('squish', 0)
         interactions['hit'] = interactions.get('hit', 0)
         interactions['punt'] = interactions.get('punt', 0)
+        interactions['bite'] = interactions.get('bite', 0)
         
         embed.add_field(name="Interact?", value=interactions['interact'], inline=True)
-        embed.add_field(name="Interaction stats:", value=f"Kiss: {interactions['kiss']}\nBoop: {interactions['boop']}\nHug: {interactions['hug']}\nPet: {interactions['pet']}\nCuddle: {interactions['cuddle']}\nHit: {interactions['hit']}\nPunt: {interactions['punt']}", inline=False)
+        embed.add_field(name="Interaction stats:", value=f"Kiss: {interactions['kiss']}\nBoop: {interactions['boop']}\nHug: {interactions['hug']}\nPet: {interactions['pet']}\nCuddle: {interactions['cuddle']}\nHit: {interactions['hit']}\nPunt: {interactions['punt']}\nBite: {interactions['bite']}", inline=False)
         await interaction.response.send_message(embed=embed)
     
 

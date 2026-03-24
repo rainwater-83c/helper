@@ -151,7 +151,7 @@ class Abilities(Cog):
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @yellow.command(name="eletrocute", description="Eletrocutes something.")
+    @yellow.command(name="electrocute", description="Electrocutes something.")
     async def electrocute(self, interaction: discord.Interaction, thing: str):
         await interaction.response.send_message(f"{interaction.user.mention} electrocutes {thing}.")
 
@@ -161,6 +161,12 @@ class Abilities(Cog):
     @green.command(name="heal", description="Heals something.")
     async def heal(self, interaction: discord.Interaction, thing: str):
         await interaction.response.send_message(f"{interaction.user.mention} heals {thing}.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @green.command(name="catify", description="Turns someone into a feline. Temporary.")
+    async def heal(self, interaction: discord.Interaction, thing: str):
+        await interaction.response.send_message(f"{interaction.user.mention} turns {thing} into a feline!")
 
     # cyan abilities
     @app_commands.allowed_installs(users=True, guilds=True)
@@ -178,4 +184,4 @@ class Abilities(Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Main(bot))
+    await bot.add_cog(Abilities(bot))

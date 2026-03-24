@@ -17,6 +17,7 @@ class Main(Cog):
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @app_commands.command(name="petpet", description="Pets a user")
     async def petpet(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
         if 'interact' not in userfile:
             # if unset, default for interactions to be enabled
             userfile['interact'] = True
@@ -27,7 +28,7 @@ class Main(Cog):
             set_userfile(user.id, "interactions", json.dumps(userfile))
             file = discord.File(BytesIO(requests.get(f'https://tt7homa.eu.pythonanywhere.com/petpet.gif?image={user.avatar.url}').content), filename=f'{user.id}_petpet.gif')
             await interaction.response.send_message(user.mention, file=file)
-            await interaction.followup.send(f"-# {user.name} has been pet {count} times.")
+            await interaction.followup.send(f"-# {user.name} has been pet {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -44,7 +45,7 @@ class Main(Cog):
             count = userfile.get('kiss', 0) + 1
             userfile['kiss'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} was kissed!\n-# {user.name} has been kissed {count} times.")
+            await interaction.response.send_message(f"{user.mention} was kissed!\n-# {user.name} has been kissed {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -61,7 +62,7 @@ class Main(Cog):
             count = userfile.get('hug', 0) + 1
             userfile['hug'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} was hugged!\n-# {user.name} has been hugged {count} times.")
+            await interaction.response.send_message(f"{user.mention} was hugged!\n-# {user.name} has been hugged {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -79,7 +80,7 @@ class Main(Cog):
             count = userfile.get('cuddle', 0) + 1
             userfile['cuddle'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} is being cuddled!\n-# {user.name} has been cuddled with {count} times.")
+            await interaction.response.send_message(f"{user.mention} is being cuddled!\n-# {user.name} has been cuddled with {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -96,7 +97,7 @@ class Main(Cog):
             count = userfile.get('boop', 0) + 1
             userfile['boop'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} was booped!\n-# {user.name} has been booped {count} times.")
+            await interaction.response.send_message(f"{user.mention} was booped!\n-# {user.name} has been booped {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -113,7 +114,7 @@ class Main(Cog):
             count = userfile.get('nuzzle', 0) + 1
             userfile['nuzzle'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} was nuzzled!\n-# {user.name} has been nuzzled {count} times.")
+            await interaction.response.send_message(f"{user.mention} was nuzzled!\n-# {user.name} has been nuzzled {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -130,7 +131,7 @@ class Main(Cog):
             count = userfile.get('squish', 0) + 1
             userfile['squish'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} was squished!\n-# {user.name} has been squished {count} times.")
+            await interaction.response.send_message(f"{user.mention} was squished!\n-# {user.name} has been squished {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -147,7 +148,7 @@ class Main(Cog):
             count = userfile.get('hit', 0) + 1
             userfile['hit'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} got hit!\n-# {user.name} has been hit {count} times.")
+            await interaction.response.send_message(f"{user.mention} got hit!\n-# {user.name} has been hit {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
@@ -165,7 +166,24 @@ class Main(Cog):
             count = userfile.get('punt', 0) + 1
             userfile['punt'] = count
             set_userfile(user.id, "interactions", json.dumps(userfile))
-            await interaction.response.send_message(f"{user.mention} got punted!\n-# {user.name} has been punted {count} times.")
+            await interaction.response.send_message(f"{user.mention} got punted!\n-# {user.name} has been punted {count} time{'s' if count != 1 else ''}.")
+        else:
+            await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @app_commands.command(name="bite", description="Bites a user")
+    async def bite(self, interaction: discord.Interaction, user: discord.User):
+        userfile = get_userfile(user.id, "interactions")
+        if 'interact' not in userfile:
+            # if unset, default for interactions to be enabled
+            userfile['interact'] = True
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+        if userfile['interact']:
+            count = userfile.get('bite', 0) + 1
+            userfile['bite'] = count
+            set_userfile(user.id, "interactions", json.dumps(userfile))
+            await interaction.response.send_message(f"{user.mention} got bitten!\n-# {user.name} has been bitten {count} time{'s' if count != 1 else ''}.")
         else:
             await interaction.response.send_message(f"{user.mention} does not have interactions enabled. No touchies!")
 
