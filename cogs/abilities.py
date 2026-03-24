@@ -133,53 +133,53 @@ class Abilities(Cog):
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @red.command(name="corrupt", description="Corrupts something.")
-    async def corrupt(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} corrupts {thing} with squares.")
+    async def corrupt(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} corrupts {user.mention} with squares.")
 
     # yellow abilities
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @yellow.command(name="heat", description="Heats something.")
-    async def heat(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} heats up {thing} by adding energy.")
+    async def heat(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} heats up {user.mention} by adding energy.")
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @yellow.command(name="cool", description="Cools something.")
-    async def cool(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} cools down {thing} by removing energy.")
+    async def cool(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} cools down {user.mention} by removing energy.")
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @yellow.command(name="electrocute", description="Electrocutes something.")
-    async def electrocute(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} electrocutes {thing}.")
+    async def electrocute(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} electrocutes {user.mention}.")
 
     # green abilities
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @green.command(name="heal", description="Heals something.")
-    async def heal(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} heals {thing}.")
+    async def heal(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} heals {user.mention}.")
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @green.command(name="catify", description="Turns someone into a feline. Temporary.")
-    async def heal(self, interaction: discord.Interaction, thing: str):
-        await interaction.response.send_message(f"{interaction.user.mention} turns {thing} into a feline!")
+    async def catify(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} turns {user.mention} into a feline!")
 
     # cyan abilities
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @cyan.command(name="teleport", description="Teleports to someplace or teleports something to someplace.")
-    async def teleport(self, interaction: discord.Interaction, thing: str, place: str):
-        await interaction.response.send_message(f"{interaction.user.mention} teleports {thing} to {place}.")
+    async def teleport(self, interaction: discord.Interaction, user: discord.User, place: str):
+        await interaction.response.send_message(f"{interaction.user.mention} teleports {user.mention} to {place}.")
 
     @app_commands.allowed_installs(users=True, guilds=True)
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     @cyan.command(name="scale", description="Changes the size of something or yourself.")
-    async def scale(self, interaction: discord.Interaction, thing: str, scale: int):
-        await interaction.response.send_message(f"{interaction.user.mention} scales {thing} to {scale} times it's original size.")
+    async def scale(self, interaction: discord.Interaction, user: discord.User, scale: float):
+        await interaction.response.send_message(f"{interaction.user.mention} scales {user.mention} to {scale} times it's original size.")
 
 
 
