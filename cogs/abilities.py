@@ -181,6 +181,46 @@ class Abilities(Cog):
     async def scale(self, interaction: discord.Interaction, user: discord.User, scale: float):
         await interaction.response.send_message(f"{interaction.user.mention} scales {user.mention} to {scale} times it's original size.")
 
+    # blue abilities
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @blue.command(name="soul", description="Enter someone's soul.")
+    async def soul(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} goes into {user.mention}'s soul.")
+
+    # magenta abilities
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @magenta.command(name="rewind", description="Rewinds time.")
+    async def rewind(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f"{interaction.user.mention} rewinds time.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @magenta.command(name="stop", description="Stops time.")
+    async def stop(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f"{interaction.user.mention} stops time.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @magenta.command(name="travel", description="Travel to a specific year.")
+    async def travel(self, interaction: discord.Interaction, year: int):
+        await interaction.response.send_message(f"{interaction.user.mention} goes to the year {year}.")
+
+    # white abilities
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @white.command(name="illuminate", description="Illuminates the area around you.")
+    async def illuminate(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f"{interaction.user.mention} lights up the area.")
+
+    @app_commands.allowed_installs(users=True, guilds=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    @white.command(name="flashbang", description="Flashbangs someone.")
+    async def flashbang(self, interaction: discord.Interaction, user: discord.User):
+        await interaction.response.send_message(f"{interaction.user.mention} creates a really bright light and flashbangs {user.mention}.")
+
+    # black abilities
 
 
 async def setup(bot):
